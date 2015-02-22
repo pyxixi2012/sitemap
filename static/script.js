@@ -35,7 +35,6 @@ function loadHistory() {
         url: 'api/history',
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             for (var idx in data) {
                 addScan(data[idx]);
             }
