@@ -83,7 +83,7 @@ function checkForUpdates() {
                             }
 
                             if (sm.status.indexOf('finished') != -1 || sm.status.indexOf('page_limit') != -1) {
-                                $(this).html($(this).html() + '<br><a href="download/' + sm.id + '">Download Sitemap</a>');
+                                $(this).html($(this).html() + '<br><a href="download/' + sm.id + '" class="btn btn-info">Download Sitemap</a>');
                             }
 
                         }
