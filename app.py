@@ -1,13 +1,21 @@
-from flask import Flask
+from flask import Flask, request
 from celery import Celery
 from flask.ext.sqlalchemy import SQLAlchemy
 from raven.contrib.flask import Sentry
+import logging
 
 
 app = Flask(__name__)
 app.config.from_object('settings')
 
-sentry = Sentry(app)
+@app.before_request
+def _cache_data():
+  request.get_data()
+
+try:
+  if app.config['SENTRY_DSN'] is not None:
+    sentry = Sentry(app, level=logging.ERROR, wrap_wsgi=False)
+except KeyError: pass
 
 # Setup database
 db = SQLAlchemy(app)
