@@ -1,4 +1,4 @@
-from app import celery, app, db
+from app import celery, app, db, models
 from spider import SitemapSpider
 import datetime
 import scrapy
@@ -6,14 +6,19 @@ from twisted.internet import reactor
 from scrapy.crawler import Crawler
 from scrapy import signals
 from scrapy.utils.project import get_project_settings
+import os
 
 
 @celery.task(name='tasks.crawl_domains', bind=True)
 def crawl_domains(self, sitemap):
     db.session.add(sitemap)
 
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'scrapy_settings'
+    os.putenv('SCRAPY_SETTINGS_MODULE', 'scrapy_settings')
+
     # Setup the spider
     spider = SitemapSpider(sitemap.get_domains())
+    spider.sitemap_id = sitemap.id
     crawler = Crawler(get_project_settings())
     crawler.signals.connect(reactor.stop, signal=signals.spider_closed)
     crawler.configure()

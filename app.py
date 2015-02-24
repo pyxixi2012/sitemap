@@ -21,6 +21,7 @@ class ContextTask(TaskBase):
             return TaskBase.__call__(self, *args, **kwargs)
 celery.Task = ContextTask
 
+import scrapy_settings
 import models
 import tasks
 

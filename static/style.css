@@ -129,6 +129,9 @@ div.output a {
     padding-right: 44px;
     float: right;
 }
+div.output code {
+    display: block;
+}
 
 footer {
     padding: 50px 0 0 0;

@@ -86,6 +86,18 @@ function checkForUpdates() {
                                 $(this).html($(this).html() + '<br><a href="download/' + sm.id + '" class="btn btn-info">Download Sitemap</a>');
                             }
 
+                            if (sm.errors.length > 0) {
+                                for (var idx in sm.errors) {
+                                    var error = sm.errors[idx];
+                                    var code = $("<code></code>");
+                                    code.text(error['name']);
+                                    if (error['details'] != '') {
+                                        code.text(code.text() + ": " + error['details']);
+                                    }
+                                    $(this).append(code);
+                                }
+                            }
+
                         }
                     });
 

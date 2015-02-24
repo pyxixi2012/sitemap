@@ -5,7 +5,14 @@ from scrapy import log
 from scrapy.exceptions import CloseSpider
 from lxml import etree
 import settings
+from app import db, models
 
+
+class ExceptionMiddleware(object):
+    def process_exception(self, request, exception, spider):
+        se = models.SitemapError(spider.sitemap_id, "%s.%s" % (exception.__class__.__module__, exception.__class__.__name__), str(exception))
+        db.session.add(se)
+        db.session.commit()
 
 class SitemapSpider(CrawlSpider):
     """
@@ -29,6 +36,10 @@ class SitemapSpider(CrawlSpider):
         self.parse_item(response)
 
     def parse_item(self, response):
+        # Don't log redirects
+        if response.status >= 300 and response.status < 400:
+            return None
+
         if not url_is_from_any_domain(response.url, self.allowed_domains):
             return None
 
