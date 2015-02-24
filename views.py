@@ -7,26 +7,6 @@ import json
 def index():
     return render_template('index.html')
 
-@app.route('/crawl')
-def crawl():
-    domains = ['google.ca']
-    ip = request.remote_addr
-
-    # Create the sitemap
-    sm = models.Sitemap(domains, ip)
-    db.session.add(sm)
-    db.session.commit()
-
-    task = tasks.crawl_domains.delay(sm)
-
-    return 'Crawling'
-
-@app.route('/createdb')
-def createdb():
-    from app import db
-    db.create_all()
-    return 'True'
-
 def clean_domain(domain):
     domain = domain.replace('http://', '').replace('https://', '').rstrip('/')
     if domain.startswith('www.'):
