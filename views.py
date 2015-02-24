@@ -1,11 +1,19 @@
-from app import app, db, models, tasks
+from app import app, db, models, tasks, sentry
 from flask import request, render_template, abort, jsonify, make_response
 import json
+import settings
+import urlparse
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    dsn = settings.SENTRY_DSN
+
+    if dsn is not None:
+        up = urlparse.urlparse(dsn)
+        dsn = "%s://%s@%s%s%s" % (up.scheme, up.username, up.hostname, ":%s" % (up.port,) if up.port > 0 else '', up.path)
+
+    return render_template('index.html', dsn=dsn)
 
 def clean_domain(domain):
     domain = domain.replace('http://', '').replace('https://', '').rstrip('/')

@@ -14,7 +14,7 @@ def _cache_data():
 
 try:
   if app.config['SENTRY_DSN'] is not None:
-    sentry = Sentry(app, level=logging.ERROR, wrap_wsgi=False)
+    sentry = Sentry(app, level=logging.ERROR, wrap_wsgi=True)
 except KeyError: pass
 
 # Setup database
