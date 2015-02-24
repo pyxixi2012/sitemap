@@ -1,10 +1,13 @@
 from flask import Flask
 from celery import Celery
 from flask.ext.sqlalchemy import SQLAlchemy
+from raven.contrib.flask import Sentry
 
 
 app = Flask(__name__)
 app.config.from_object('settings')
+
+sentry = Sentry(app)
 
 # Setup database
 db = SQLAlchemy(app)
