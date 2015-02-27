@@ -80,22 +80,22 @@ function checkForUpdates() {
 
                             if (sm.crawl_ended !== undefined || sm.status == 'finished' || sm.status == 'page_limit') {
                                 watch_tasks[sm.id] = false;
+
+                                if (sm.errors.length > 0) {
+                                    for (var idx in sm.errors) {
+                                        var error = sm.errors[idx];
+                                        var code = $("<code></code>");
+                                        code.text(error['name']);
+                                        if (error['details'] != '') {
+                                            code.text(code.text() + ": " + error['details']);
+                                        }
+                                        $(this).append(code);
+                                    }
+                                }
                             }
 
                             if (sm.status.indexOf('finished') != -1 || sm.status.indexOf('page_limit') != -1) {
                                 $(this).html($(this).html() + '<br><a href="download/' + sm.id + '" class="btn btn-info">Download Sitemap</a>');
-                            }
-
-                            if (sm.errors.length > 0) {
-                                for (var idx in sm.errors) {
-                                    var error = sm.errors[idx];
-                                    var code = $("<code></code>");
-                                    code.text(error['name']);
-                                    if (error['details'] != '') {
-                                        code.text(code.text() + ": " + error['details']);
-                                    }
-                                    $(this).append(code);
-                                }
                             }
 
                         }
