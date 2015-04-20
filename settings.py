@@ -3,7 +3,7 @@ import os
 
 
 # Database
-SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite://')
+SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', os.getenv('DATABASE_URL', 'sqlite://'))
 
 # Redis
 REDIS_HOST = '127.0.0.1'

@@ -1,7 +1,8 @@
-Flask==0.10.1
-Flask-SQLAlchemy==2.0
-Scrapy==0.24.4
-scrapy-sentry==0.6.1
-raven==5.2.0
-blinker==1.3
+Flask
+Flask-SQLAlchemy
+Scrapy
+scrapy-sentry
+raven
+blinker
 gunicorn
+psycopg2
