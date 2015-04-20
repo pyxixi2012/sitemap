@@ -1,6 +1,7 @@
 from flask import Flask, request
 from celery import Celery
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.migrate import Migrate
 from raven.contrib.flask import Sentry
 import logging
 
@@ -21,6 +22,7 @@ except KeyError: pass
 
 # Setup database
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # Setup task queue
 celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])

@@ -9,3 +9,5 @@ psycopg2
 celery
 redis
 service_identity
+Flask-Script
+Flask-Migrate
