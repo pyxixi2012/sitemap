@@ -7,3 +7,4 @@ blinker
 gunicorn
 psycopg2
 celery
+redis
