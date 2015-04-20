@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: adba8393112
+Revision ID: 7b538bfdb2a
 Revises: None
-Create Date: 2015-04-20 16:18:28.220695
+Create Date: 2015-04-20 16:26:37.148205
 
 """
 
 # revision identifiers, used by Alembic.
-revision = 'adba8393112'
+revision = '7b538bfdb2a'
 down_revision = None
 
 from alembic import op
@@ -25,14 +25,14 @@ def upgrade():
     sa.Column('crawl_started', sa.DateTime(), nullable=True),
     sa.Column('crawl_ended', sa.DateTime(), nullable=True),
     sa.Column('crawl_status', sa.String(length=256), nullable=False),
-    sa.Column('sitemap', sa.UnicodeText(length=2147483648), nullable=True),
+    sa.Column('sitemap', sa.UnicodeText(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('sitemap_error',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('sitemap_id', sa.Integer(), nullable=True),
-    sa.Column('error_name', sa.UnicodeText(length=1024), nullable=False),
-    sa.Column('error_details', sa.UnicodeText(length=2147483648), nullable=True),
+    sa.Column('error_name', sa.UnicodeText(), nullable=False),
+    sa.Column('error_details', sa.UnicodeText(), nullable=True),
     sa.ForeignKeyConstraint(['sitemap_id'], ['sitemap.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

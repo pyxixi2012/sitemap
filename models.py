@@ -13,7 +13,7 @@ class Sitemap(db.Model):
     crawl_started = db.Column(db.DateTime, nullable=True)
     crawl_ended = db.Column(db.DateTime, nullable=True)
     crawl_status = db.Column(db.String(256), nullable=False)
-    sitemap = db.Column(db.UnicodeText(2**31), nullable=True)
+    sitemap = db.Column(db.UnicodeText, nullable=True)
     errors = db.relationship('SitemapError', backref='sitemap', lazy='dynamic')
 
     def __init__(self, domains, ip):
@@ -56,8 +56,8 @@ class Sitemap(db.Model):
 class SitemapError(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sitemap_id = db.Column(db.Integer, db.ForeignKey('sitemap.id'))
-    error_name = db.Column(db.UnicodeText(1024), nullable=False)
-    error_details = db.Column(db.UnicodeText(2**31), nullable=True)
+    error_name = db.Column(db.UnicodeText, nullable=False)
+    error_details = db.Column(db.UnicodeText, nullable=True)
 
     def __init__(self, sitemap_id, error, details=None):
         self.sitemap_id = sitemap_id
