@@ -13,3 +13,4 @@ try:
   if SENTRY_DSN is not None:
     EXTENSIONS['scrapy_sentry.extensions.Errors'] = 10
 except KeyError: pass
+except NameError: pass
