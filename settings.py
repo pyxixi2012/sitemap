@@ -5,14 +5,8 @@ import os
 # Database
 SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', os.getenv('DATABASE_URL', 'sqlite://'))
 
-# Redis
-REDIS_HOST = '127.0.0.1'
-REDIS_PORT = 6379
-REDIS_DB = 0
-REDIS_PREFIX = 'sitemap::'
-
 # Celery
-CELERY_BROKER_URL = 'redis://%s:%s' % (REDIS_HOST, REDIS_PORT)
+CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379/0')
 CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 CELERY_RESULT_BACKEND = "db+%s" % (SQLALCHEMY_DATABASE_URI,)
 CELERYD_MAX_TASKS_PER_CHILD = 1
