@@ -26,7 +26,7 @@ SCHEDULER_MEMORY_QUEUE = 'scrapy.squeue.FifoMemoryQueue'
 # Sitemap-specific settings
 PAGE_LIMIT = 1000
 
-SENTRY_DSN = None
+SENTRY_DSN = os.getenv('SENTRY_DSN', None)
 
 # Any settings specified in local_settings.py should override these defaults
 try:
